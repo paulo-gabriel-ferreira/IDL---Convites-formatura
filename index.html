@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Convites | Instituto Dente de Leão</title>
+<link rel="icon" href="/assets/simbolo.png">
+<link rel="stylesheet" href="/css/fonts.css">
+<link rel="stylesheet" href="/css/painel.css">
+</head>
+<body>
+
+<!-- ============ LOGIN ============ -->
+<main id="v-login" class="login" hidden>
+  <form class="login-box" id="f-login">
+    <img src="/assets/simbolo.png" alt="" class="login-sim">
+    <h1>Painel de convites</h1>
+    <p class="sub">Entre com a conta do Instituto para criar e editar os convites.</p>
+    <label class="campo"><span>E-mail</span><input type="email" name="email" autocomplete="username" required></label>
+    <label class="campo"><span>Senha</span><input type="password" name="senha" autocomplete="current-password" required></label>
+    <p class="erro" id="login-erro" hidden></p>
+    <button class="btn prim grande" type="submit">Entrar</button>
+  </form>
+</main>
+
+<!-- ============ TOPO ============ -->
+<header class="topo" id="topo" hidden>
+  <a href="#" class="marca" data-ir="lista">
+    <img src="/assets/simbolo.png" alt="">
+    <span>Convites<small>Banca Final IDL Tech</small></span>
+  </a>
+  <nav>
+    <button class="btn link" data-ir="evento">Dados do evento</button>
+    <button class="btn link" id="sair">Sair</button>
+  </nav>
+</header>
+
+<!-- ============ LISTA ============ -->
+<main id="v-lista" class="pagina" hidden>
+  <div class="cab">
+    <div>
+      <h1>Convites</h1>
+      <p class="sub" id="resumo">Carregando…</p>
+    </div>
+    <div class="acoes">
+      <button class="btn sec" id="abrir-varios">Criar vários</button>
+      <button class="btn prim" id="novo">Novo convite</button>
+    </div>
+  </div>
+
+  <div class="filtros">
+    <label class="busca"><span class="sr">Buscar</span><input type="search" id="busca" placeholder="Buscar pelo nome"></label>
+    <label><span class="sr">Público</span>
+      <select id="f-publico">
+        <option value="">Todos os públicos</option>
+      </select>
+    </label>
+    <label><span class="sr">Situação</span>
+      <select id="f-situacao">
+        <option value="">Qualquer situação</option>
+        <option value="nao">Ainda não enviados</option>
+        <option value="enviado">Enviados</option>
+        <option value="aberto">Já abertos</option>
+      </select>
+    </label>
+  </div>
+
+  <ul class="lista" id="lista"></ul>
+  <div class="vazio" id="vazio" hidden></div>
+</main>
+
+<!-- ============ EDITOR ============ -->
+<main id="v-editor" class="pagina editor" hidden>
+  <button class="btn link voltar" data-ir="lista">Todos os convites</button>
+
+  <div class="ed-grid">
+    <form class="ed-form" id="f-convite" autocomplete="off">
+      <h1 id="ed-titulo">Novo convite</h1>
+
+      <fieldset>
+        <legend>Convidado</legend>
+        <div class="linha2">
+          <label class="campo"><span>Público</span><select name="publico" id="ed-publico"></select></label>
+          <div class="campo" id="ed-trat-box">
+            <span>Tratamento</span>
+            <div class="seg" role="radiogroup" aria-label="Tratamento">
+              <label><input type="radio" name="genero" value="o" checked><span>Ele</span></label>
+              <label><input type="radio" name="genero" value="a"><span>Ela</span></label>
+            </div>
+          </div>
+        </div>
+        <label class="campo"><span id="ed-nome-rot">Nome do convidado</span><input name="nome" class="grande" required></label>
+        <p class="dica" id="ed-modelo-aviso" hidden>
+          Os textos abaixo foram editados.
+          <button type="button" class="btn link mini" id="ed-reaplicar">Voltar ao texto padrão</button>
+        </p>
+      </fieldset>
+
+      <fieldset>
+        <legend>Envelope e título</legend>
+        <label class="campo"><span>Frase acima do nome, no envelope</span><input name="chamada"></label>
+        <div class="linha2">
+          <label class="campo"><span>Título, primeira linha</span><input name="titulo_a"></label>
+          <label class="campo"><span>Título, segunda linha (dourada)</span><input name="titulo_b"></label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Carta</legend>
+        <label class="campo"><span>Saudação</span><input name="saudacao"></label>
+        <label class="campo"><span>Texto</span><textarea name="paragrafos" rows="9"></textarea></label>
+        <p class="dica">Cada linha vira um parágrafo. Escreva <code>{nome}</code> onde o nome do convidado deve aparecer.</p>
+        <div class="linha2">
+          <label class="campo"><span>Despedida</span><input name="despedida"></label>
+          <label class="campo"><span>Pergunta da confirmação</span><input name="pergunta"></label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Só para a equipe</legend>
+        <label class="campo"><span>Anotação (não aparece no convite)</span><input name="anotacao" placeholder="Ex.: telefone, quem vai enviar, grupo do trilheiro"></label>
+      </fieldset>
+
+      <div class="ed-barra">
+        <p class="estado-salvo" id="ed-estado"></p>
+        <button class="btn prim grande" type="submit" id="ed-salvar">Salvar convite</button>
+      </div>
+
+      <section class="envio" id="ed-envio" hidden>
+        <h2>Link deste convite</h2>
+        <div class="link-box">
+          <input readonly id="ed-link" aria-label="Link do convite">
+          <button type="button" class="btn sec" id="ed-copiar">Copiar link</button>
+        </div>
+        <div class="envio-acoes">
+          <button type="button" class="btn zap" id="ed-zap">Enviar pelo WhatsApp</button>
+          <button type="button" class="btn sec" id="ed-marcar">Marcar como enviado</button>
+          <a class="btn sec" id="ed-abrir" target="_blank" rel="noopener">Abrir convite</a>
+        </div>
+        <p class="dica" id="ed-situacao"></p>
+        <div class="envio-mais">
+          <button type="button" class="btn link" id="ed-duplicar">Duplicar para outro convidado</button>
+          <button type="button" class="btn link perigo" id="ed-excluir">Excluir convite</button>
+        </div>
+      </section>
+    </form>
+
+    <aside class="previa" aria-label="Prévia do convite">
+      <div class="previa-cab">
+        <span>Prévia</span>
+        <button type="button" class="btn link mini" id="ver-abertura">Ver abertura do envelope</button>
+      </div>
+      <div class="celular"><iframe id="previa" title="Prévia do convite"></iframe></div>
+    </aside>
+  </div>
+</main>
+
+<!-- ============ EVENTO ============ -->
+<main id="v-evento" class="pagina estreita" hidden>
+  <button class="btn link voltar" data-ir="lista">Todos os convites</button>
+  <h1>Dados do evento</h1>
+  <p class="sub">O que você muda aqui aparece em todos os convites na hora, inclusive nos que já foram enviados.</p>
+
+  <form id="f-evento" autocomplete="off">
+    <fieldset>
+      <legend>Nome</legend>
+      <label class="campo"><span>Nome do evento</span><input name="nome"></label>
+      <label class="campo"><span>Linha abaixo do nome</span><input name="subtitulo"></label>
+    </fieldset>
+    <fieldset>
+      <legend>Data e horário</legend>
+      <div class="linha3">
+        <label class="campo"><span>Dia da semana</span><input name="dia_semana"></label>
+        <label class="campo"><span>Dia</span><input name="dia"></label>
+        <label class="campo"><span>Mês</span><input name="mes"></label>
+      </div>
+      <div class="linha2">
+        <label class="campo"><span>Início</span><input name="hora_inicio"></label>
+        <label class="campo"><span>Término</span><input name="hora_fim"></label>
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend>Local</legend>
+      <label class="campo"><span>Nome do local</span><input name="local_nome"></label>
+      <label class="campo"><span>Endereço completo (usado no mapa)</span><input name="local_endereco"></label>
+    </fieldset>
+    <fieldset>
+      <legend>WhatsApp</legend>
+      <label class="campo"><span>Número que recebe as confirmações (com DDI e DDD, só números)</span><input name="whatsapp" inputmode="numeric"></label>
+      <label class="campo"><span>Mensagem que o convidado manda ao confirmar</span><textarea name="mensagem_rsvp" rows="3"></textarea></label>
+      <label class="campo"><span>Mensagem que acompanha o link quando você envia o convite</span><textarea name="mensagem_envio" rows="3"></textarea></label>
+      <p class="dica"><code>{nome}</code> vira o nome do convidado e <code>{link}</code> vira o link do convite.</p>
+    </fieldset>
+    <div class="ed-barra">
+      <p class="estado-salvo" id="ev-estado"></p>
+      <button class="btn prim grande" type="submit">Salvar dados do evento</button>
+    </div>
+  </form>
+</main>
+
+<!-- ============ CRIAR VÁRIOS ============ -->
+<dialog id="d-varios" class="dialogo">
+  <form method="dialog" id="f-varios">
+    <h2>Criar vários convites</h2>
+    <p class="sub">Todos saem com o texto padrão do público escolhido. Depois você pode abrir e ajustar cada um.</p>
+    <div class="linha2">
+      <label class="campo"><span>Público</span><select name="publico" id="v-publico"></select></label>
+      <div class="campo" id="v-trat-box">
+        <span>Tratamento</span>
+        <div class="seg" role="radiogroup" aria-label="Tratamento">
+          <label><input type="radio" name="genero" value="o" checked><span>Ele</span></label>
+          <label><input type="radio" name="genero" value="a"><span>Ela</span></label>
+        </div>
+      </div>
+    </div>
+    <label class="campo"><span>Nomes, um por linha</span><textarea name="nomes" rows="8" placeholder="Ana Souza&#10;Bruno Lima&#10;Carla Mendes"></textarea></label>
+    <p class="erro" id="v-erro" hidden></p>
+    <div class="dialogo-acoes">
+      <button class="btn link" value="cancelar" formnovalidate>Cancelar</button>
+      <button class="btn prim" id="v-criar" value="criar">Criar convites</button>
+    </div>
+  </form>
+</dialog>
+
+<div class="aviso" id="aviso" role="status" aria-live="polite"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script src="/js/config.js"></script>
+<script src="/js/modelos.js"></script>
+<script src="/js/painel.js"></script>
+</body>
+</html>
