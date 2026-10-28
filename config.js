@@ -1,7 +1,7 @@
-// Cole aqui os dados do seu projeto Supabase
-// (Supabase > Project Settings > API)
-// A "anon public key" pode ficar no site: quem protege os dados são as regras do banco.
+// Dados do projeto Supabase (Project Settings > API)
+// A chave publishable pode ficar no site: quem protege os dados são as regras do banco.
+// NUNCA coloque aqui a chave secret (sb_secret_...).
 window.CONVITES_CONFIG = {
   SUPABASE_URL: 'https://SEU-PROJETO.supabase.co',
-  SUPABASE_ANON_KEY: 'COLE-AQUI-A-ANON-PUBLIC-KEY'
+  SUPABASE_ANON_KEY: 'sb_publishable_XCbTwmsWtpSEJhDop5M87w_bWHvvYFG'
 };

@@ -223,7 +223,7 @@
     if (!lista.length) {
       vazio.innerHTML = todos.length
         ? '<div><strong>Nenhum convite com esses filtros</strong>Limpe a busca ou escolha outro público.</div>'
-        : '<img src="/assets/simbolo.png" alt=""><div><strong>Crie o primeiro convite</strong>Cada convite ganha um link próprio para enviar ao convidado.</div><button class="btn prim" data-ir="novo">Novo convite</button>';
+        : '<img src="/simbolo.png" alt=""><div><strong>Crie o primeiro convite</strong>Cada convite ganha um link próprio para enviar ao convidado.</div><button class="btn prim" data-ir="novo">Novo convite</button>';
     }
   }
   ['#busca', '#f-publico', '#f-situacao'].forEach(function (s) { $(s).addEventListener('input', renderLista); });
@@ -491,7 +491,7 @@
   if (!configurado) {
     mostrar('login');
     var err = $('#login-erro');
-    err.textContent = 'O site ainda não está ligado ao Supabase. Preencha o arquivo js/config.js (veja o LEIA-ME).';
+    err.textContent = 'O site ainda não está ligado ao Supabase. Preencha o arquivo config.js (veja o LEIA-ME).';
     err.hidden = false;
     $$('#f-login input, #f-login button').forEach(function (el) { el.disabled = true; });
     return;
